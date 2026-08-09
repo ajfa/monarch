@@ -1,0 +1,7 @@
+*.o
+*.raw
+*.dsk
+*.img
+*.imd
+z80pack/monarchsim/monarchsim
+z80pack/monarchsim/disks/

@@ -1,0 +1,1 @@
+simcfg.o: simcfg.c
