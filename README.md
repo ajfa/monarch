@@ -123,9 +123,12 @@ media/              put your diskette image here
 z80pack/            Udo Munk's Z80 core, with monarchsim on top
 ```
 
-## Licence
+## License
 
-MIT, for the code here. z80pack is Udo Munk's and keeps its own licence, in
+The code here is under the **GNU General Public License v3.0**, see
+[LICENSE](LICENSE). Parts of this repository are other people's work and are
+not covered by it — see [NOTICE.md](NOTICE.md). Contributions require the
+agreement in [CLA.md](CLA.md); see [CONTRIBUTING.md](CONTRIBUTING.md). z80pack is Udo Munk's and keeps its own license, in
 `z80pack/LICENSE`. Two small additions were made to its core: `io_porth`, which
 exposes the high byte of the I/O cycle because the Monarch's MMU puts the slot
 there, and a `machine_tick` hook so the clock runs on emulated time rather than
