@@ -1,5 +1,6 @@
+import os
 import re, sys
-L = open('<home>/monarch/re/xios.asm').read().split('\n')
+L = open(os.environ.get('XIOS_ASM', 're/xios.asm')).read().split('\n')
 def idx(a):
     for i, l in enumerate(L):
         if (";%04x" % a) in l:
