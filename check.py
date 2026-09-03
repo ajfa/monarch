@@ -5,10 +5,20 @@ monarchsim directory. Exits 0 only if every gate passes."""
 import os, pty, select, sys, time, re, signal, shutil, hashlib
 
 IMG = 'disks/drivea.dsk'
-PRISTINE = os.path.expanduser('~/dynabyte/monarch/mon-mpm2-1.raw')
+# This runs from the monarchsim directory, so the repository is located from
+# the script itself rather than from the working directory.  run.sh already
+# puts a fresh copy of the diskette in place; doing it here as well means
+# check.py can also be run on its own.
+REPO = os.path.dirname(os.path.abspath(__file__))
+PRISTINE = os.path.join(REPO, 'media', 'monarch-mpm2-disk1.raw')
 if os.path.exists(PRISTINE):
-    shutil.copy(PRISTINE, IMG)          # the guest can write now
+    shutil.copy(PRISTINE, IMG)          # a fresh copy, so the guest can write
     os.chmod(IMG, 0o644)
+if not os.path.exists(IMG):
+    sys.exit("check.py: no %s, and no %s to make it from.\n"
+             "This repository does not ship Digital Research or Dynabyte "
+             "software.\nSee the README for how to produce the diskette image."
+             % (IMG, PRISTINE))
 sha_before = hashlib.sha256(open(IMG, 'rb').read()).hexdigest()
 
 gates, failed = [], []
