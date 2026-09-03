@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build monarchsim from a clean checkout
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the simulator
+        run: make -C z80pack/monarchsim/srcsim
+
+      - name: The binary was produced
+        run: test -x z80pack/monarchsim/monarchsim
+
+      - name: Byte-compile everything written in Python
+        run: python3 -m py_compile check.py mkwinch.py tools/*.py
+
+      # check.py is deliberately not run here. It boots the MP/M II DV1.4E
+      # diskette, which is Digital Research and Dynabyte software and is not in
+      # this repository, so there is nothing for it to boot on a runner. What
+      # this job answers is the question that can be answered without media:
+      # that a clean checkout builds with standard options.
